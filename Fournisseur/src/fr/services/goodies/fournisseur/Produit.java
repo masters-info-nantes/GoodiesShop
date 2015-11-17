@@ -10,8 +10,15 @@ public class Produit {
 	double prix;
 	int quantite;
 	
-	
 	public Produit(String nom, double prix, int quantite) {
+		super();
+		this.nom = nom;
+		this.prix = prix;
+		this.quantite = quantite;
+		this.id = UUID.randomUUID().toString();
+	}
+	
+	public Produit(String id, String nom, double prix, int quantite) {
 		super();
 		this.nom = nom;
 		this.prix = prix;
