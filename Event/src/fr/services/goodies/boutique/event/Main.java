@@ -2,8 +2,16 @@ package fr.services.goodies.boutique.event;
 
 
 public class Main {
+	
+	private EventStore store = new EventStore("localhost", 1113);
+	
 	public static void main(String[] args){
-		EventStore store = new EventStore("localhost", 1113);
-		store.write("newstream", "event-type", "{\"coucou\":\"2\"}");
+		Main myInstance = new Main();
+		myInstance.write();
+	}
+	
+	public String write() {
+		store.write(CommandePassee.STREAM_NAME, CommandePassee.EVENT_TYPE, "{\"coucou\":\"2\"}");
+		return "Request !";
 	}
 }
