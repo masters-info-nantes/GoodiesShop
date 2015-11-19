@@ -39,7 +39,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <outputDirectory>${basedir}/generated-sources</outputDirectory>
+                    <outputDirectory>${basedir}</outputDirectory>
                     <databindingName>adb</databindingName><language>java</language><wsdlFile>http://localhost:9763/services/Fournisseur?wsdl</wsdlFile><portName>FournisseurHttpEndpoint</portName>
                 </configuration>
             </plugin>
@@ -57,14 +57,53 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${basedir}/generated-sources/src</source>
-                                <source>${basedir}/generated-sources/test</source>
+                                <source>${basedir}</source>
+                                <source>${basedir}/test</source>
                             </sources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
             
+            <!-- 
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>${axis2_version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <outputDirectory>${basedir}</outputDirectory>
+                    <databindingName>adb</databindingName><language>java</language><wsdlFile>http://localhost:9763/services/Paiement?wsdl</wsdlFile><portName>PaiementHttpEndpoint</portName>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}</source>
+                                <source>${basedir}/test</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-eclipse-plugin</artifactId>

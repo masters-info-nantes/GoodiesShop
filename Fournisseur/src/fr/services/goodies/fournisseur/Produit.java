@@ -23,7 +23,7 @@ public class Produit {
 		this.nom = nom;
 		this.prix = prix;
 		this.quantite = quantite;
-		this.id = UUID.randomUUID().toString();
+		this.id = id;
 	}
 	
 	public String getId(){

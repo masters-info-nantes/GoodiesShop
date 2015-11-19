@@ -11,6 +11,7 @@ public class Fournisseur {
 	private String deviseProduits;
 	private Map<String, Produit> produitsEnStock;
 	private Map<String, Produit> reservations;
+	private Map<String, Produit> produitsCommandes;
 	
 	public Fournisseur() {
 		deviseProduits = "USD";
@@ -25,13 +26,13 @@ public class Fournisseur {
 		return list;
 	}
 	
-	public String reserverProduit(String id, int quantite) throws QuantiteInsufisante, CeProduitNExistePas{
+	public String reserverProduit(String id, int quantite){
 	
 		if(!produitsEnStock.containsKey(id)){
-			throw new CeProduitNExistePas();
+			return null;
 		}
 		else if(produitsEnStock.get(id).getQuantite() < quantite){
-			throw new QuantiteInsufisante();
+			return null;
 		}
 		else{	
 			Produit p = produitsEnStock.get(id);
@@ -42,9 +43,8 @@ public class Fournisseur {
 		}
 	}
 			
-	public void annulerReservation(String id) throws CetteReservationNExistePas{
+	public void annulerReservation(String id){
 		if(!reservations.containsKey(id)){
-			throw new CetteReservationNExistePas();
 		}
 		else{
 			Produit p = produitsEnStock.get(id);
@@ -53,12 +53,16 @@ public class Fournisseur {
 		}
 	}
 	
-	public Produit getReservation(String id) throws CetteReservationNExistePas{
+	public Produit getReservation(String id){
 
 		if(!reservations.containsKey(id)){
-			throw new CetteReservationNExistePas();
+			return null;
 		}
 		return reservations.get(id);
+	}
+	
+	public void annulerCommande(){
+		
 	}
 	
 }
