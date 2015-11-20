@@ -1,4 +1,4 @@
-package fr.services.goodies.boutique.event;
+package fr.services.goodies.boutique.event.examples;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import fr.services.goodies.fournisseur.Produit;
 
 /**
- * Evenement généré quand une commande est passée avec succès.
+ * Idée d'événement qui pourrait être généré quand une commande est validée.
  * @author hector
  *
  */
