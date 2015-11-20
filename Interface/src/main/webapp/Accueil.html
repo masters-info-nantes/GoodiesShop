@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
-
+<link href="main.css" type="text/css" rel="stylesheet" />
 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
@@ -73,20 +73,70 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Test</h1>
-        <p class="lead">{{boutique.test}}</p>
-      </div>
+        <h1>Articles en vente</h1>
 
+
+        <div class="row">
+	  <div class="col-md-11">
+		<div class="row">
+		  <div class="col-md-12">
+			<div>
+				<table class="userUeList">
+				<tr>
+					<th colspan="2">
+						<span><strong>The order name</strong></span><br>
+						Quantity : 12, cost: €12623.13
+						
+					</th>
+					<th class="action">
+						<form id="html5Form" class="form-horizontal"
+							data-fv-framework="bootstrap"
+							data-fv-icon-valid="glyphicon glyphicon-ok"
+							data-fv-icon-invalid="glyphicon glyphicon-remove"
+							data-fv-icon-validating="glyphicon glyphicon-refresh">
+
+							<div class="form-group">
+								<div class="col-xs-3 inputContainer">
+									<input class="form-control" name="number"
+										type="number"
+										data-fv-integer-message="The value is not an integer" style="width:80px"/>
+								</div>
+							</div>
+						</form>
+						
+						
+						</div>
+						
+					 </th>
+					 <th>
+<a href="#" class="btn btn-primary btn-xs">
+							 approve
+						</a>
+					 </th>
+				</tr>				
+			</table>
+				
+				
+		  </div>
+		</div>
+	  </div>
+	</div>
+      </div>
     </div>
 	<!---------------------End---------------------------->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery.xml2json/src/jquery.xml2json.js"></script>
 <script type="text/javascript" src="bower_components/jquery.soap/jquery.soap.js"></script>
     <script src="App.js"></script>
     <script src="shop.js"></script>
-
+<script>
+$(document).ready(function() {
+    $('#html5Form').formValidation();
+});
+</script>
   </body>
 </html>
 

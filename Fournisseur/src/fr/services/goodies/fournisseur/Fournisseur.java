@@ -19,6 +19,15 @@ public class Fournisseur {
 		reservations = new TreeMap<String, Produit>();
 		Produit p = new Produit("dexter", 20, 10);
 		produitsEnStock.put(p.getId(), p);
+		deviseProduits = "USD";
+
+		Produit p2 = new Produit("aaaaaa", 20, 10);
+		produitsEnStock.put(p2.getId(), p2);
+
+		deviseProduits = "USD";
+
+		Produit p3 = new Produit("bbbbb", 20, 10);
+		produitsEnStock.put(p3.getId(), p3);
 	}
 	
 	public List<Produit> listerProduits(){
