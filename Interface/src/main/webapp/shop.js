@@ -10,6 +10,8 @@
 angular.module('boutiqueApp')
   .controller('shop', function () {
 
+	  this.produits = [];
+
   $.soap({
     url: 'http://localhost:9763/services/Boutique/',
     namespaceURL:'http://boutique.goodies.services.fr'
@@ -22,7 +24,7 @@ $.soap({
     success: function (soapResponse) {
         // do stuff with soapResponse
         console.log(soapResponse);
-        console.log(soapResponse.toString());
+        this.produits = soapResponse.toJSON().return;
     },
     error: function (soapResponse) {
         console.log('that other server might be down...');
