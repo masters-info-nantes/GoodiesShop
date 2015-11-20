@@ -1,27 +1,27 @@
-.userUeList {
+.articleListe {
     width:100%;
     margin-top:25px;
     margin-bottom:15px;
     border:3px solid #DDDDDD;
 }
    
- .userUeList   tr th, .userUeList tr td {
+ .articleListe   tr th, .articleListe tr td {
     padding: 8px 5px;
     border:1px solid #DDDDDD;
 } 
-.userUeList   tr th.weight, .userUeList tr td.weight {
+.articleListe   tr th.weight, .articleListe tr td.weight {
     width: 92px;
 }
   
-.userUeList   tr th.action , .userUeList tr td.action {
+.articleListe   tr th.action , .articleListe tr td.action {
     width: 92px;
 }
  
-.userUeList   tr th.cell-lg  div,.userUeList   tr td.cell-lg {
+.articleListe   tr th.cell-lg  div,.articleListe   tr td.cell-lg {
 	float: right;
 	display: inline-block;
 	margin:3px;
 }
-.userUeList   tr th.cell-lg  div :first-child,.userUeList   tr td.cell-lg  :first-child {
+.articleListe   tr th.cell-lg  div :first-child,.articleListe   tr td.cell-lg  :first-child {
     float: left;
 }

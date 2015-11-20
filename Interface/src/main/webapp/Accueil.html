@@ -81,7 +81,7 @@
 		<div class="row">
 		  <div class="col-md-12">
 			<div>
-				<table class="userUeList">
+				<table class="articleListe">
 				<tr>
 					<th colspan="2">
 						<span><strong>The order name</strong></span><br>
@@ -89,6 +89,7 @@
 						
 					</th>
 					<th class="action">
+						<span><strong>Quantité : </strong></span><br>
 						<form id="html5Form" class="form-horizontal"
 							data-fv-framework="bootstrap"
 							data-fv-icon-valid="glyphicon glyphicon-ok"
@@ -99,6 +100,7 @@
 								<div class="col-xs-3 inputContainer">
 									<input class="form-control" name="number"
 										type="number"
+										min="1"
 										data-fv-integer-message="The value is not an integer" style="width:80px"/>
 								</div>
 							</div>
@@ -109,9 +111,10 @@
 						
 					 </th>
 					 <th>
-<a href="#" class="btn btn-primary btn-xs">
-							 approve
-						</a>
+						<div>
+							<button class="btn btn-primary" ng-click=""> <span class="glyphicon glyphicon-plus" ></span> Ajouter au panier </button>
+						</div>
+
 					 </th>
 				</tr>				
 			</table>
