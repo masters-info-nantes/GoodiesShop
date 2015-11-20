@@ -1,5 +1,6 @@
-package fr.services.goodies.boutique.event;
+package fr.services.goodies.boutique.event.examples;
 
+import fr.services.goodies.boutique.event.EventStore;
 
 public class Main {
 	
@@ -11,7 +12,7 @@ public class Main {
 	}
 	
 	public String write() {
-		store.write(CommandePassee.STREAM_NAME, CommandePassee.EVENT_TYPE, "{\"coucou\":\"2\"}");
+		store.writeEvent(CommandePassee.STREAM_NAME, CommandePassee.EVENT_TYPE, "{\"coucou\":\"2\"}", "");
 		return "Request !";
 	}
 }
