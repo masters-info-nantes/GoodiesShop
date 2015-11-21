@@ -5,4 +5,8 @@
 **/.metadata
 **/.recommenders
 **/target
-
+**/bin
+**/.project
+**/.classpath
+**/.project
+**/.gitignore
