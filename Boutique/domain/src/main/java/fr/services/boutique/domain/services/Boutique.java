@@ -11,6 +11,8 @@ import java.util.UUID;
 
 import org.apache.axis2.AxisFault;
 
+import fr.service.banque.application.WebApplicationBanqueStub;
+import fr.service.banque.application.WebApplicationBanqueStub.Payer;
 import fr.service.fournisseur.application.WebApplicationFournisseurStub;
 import fr.service.fournisseur.application.WebApplicationFournisseurStub.AnnulerReservation;
 import fr.service.fournisseur.application.WebApplicationFournisseurStub.GetReservation;
@@ -26,7 +28,7 @@ import fr.services.boutique.api.services.IBoutique;
 public class Boutique implements IBoutique{
 
 	private final static String fournisseurEndPoint = "http://localhost:9763/services/WebApplicationFournisseur/";
-	private final static String banqueEndPoint = "http://localhost:9763/services/Banque/";
+	private final static String banqueEndPoint = "http://localhost:9763/services/WebApplicationBanque/";
 	private Set<String> clients;
 	/*nom utilisateur / id reservation*/
 	private Map<String, Set<String>> reservations;
@@ -116,34 +118,33 @@ public class Boutique implements IBoutique{
 	}
 
 	@Override
-	public String effectuerPaiement(String nomUtilisateur, String numeroCarte,
-			String cyptogramme, String date) {
-		//PaiementStub stubPaiement;
+	public String effectuerPaiement(String nomCrediteur, String nomDebiteur,
+			double somme) {
+		WebApplicationBanqueStub stubPaiement;
 		WebApplicationFournisseurStub stubFournisseur;
 		String idCommande = null;
 		try {
-			//stubPaiement = new PaiementStub(banqueEndPoint);
+			stubPaiement = new WebApplicationBanqueStub(banqueEndPoint);
 			stubFournisseur = new WebApplicationFournisseurStub(fournisseurEndPoint);
 			
-			/*EffectuerPaiement requete = new EffectuerPaiement();
-			requete.setCryptogramme(cyptogramme);
-			requete.setDate(date);
-			requete.setNomUtilisateur(nomUtilisateur);
-			requete.setNumeroCarte(numeroCarte);
+			Payer requete = new Payer();
+			requete.setCompteCredit(nomCrediteur);
+			requete.setCompteDebit(nomDebiteur);
+			requete.setSomme(somme);
 			
-			stubPaiement.effectuerPaiement(requete);*/
+			stubPaiement.payer(requete);
 			
 			idCommande = UUID.randomUUID().toString();
 			
 			List<IProduit> p = new ArrayList<IProduit>();
-			for(String s : reservations.get(nomUtilisateur)){
+			for(String s : reservations.get(nomCrediteur)){
 				GetReservation request = new GetReservation();
-				request.setId(nomUtilisateur);
+				request.setId(nomCrediteur);
 				GetReservationResponse response = stubFournisseur.getReservation(request);
 				p.add(response.get_return());
 			}
 			this.commandes.put(idCommande, p);
-			this.reservations.remove(nomUtilisateur);
+			this.reservations.remove(nomCrediteur);
 			
 		}
 		catch(AxisFault e){

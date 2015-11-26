@@ -1,5 +1,6 @@
 package fr.services.banque.domain.services;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import fr.services.banque.api.factories.ICompteFactory;
@@ -12,6 +13,7 @@ public class Banque implements IBanqueService {
 	
 	public Banque(ICompteFactory factory) {
 		
+		comptes = new HashMap<String, ICompte>();
 		//valeurs pour test
 		ICompte client = factory.getCompte("client", 1000),
 				boutique = factory.getCompte("boutique", 1000);
