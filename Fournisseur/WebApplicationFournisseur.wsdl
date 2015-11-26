@@ -1,0 +1,242 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://application.fournisseur.service.fr" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax2360="http://valueobject.api.fournisseur.services.fr/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://application.fournisseur.service.fr">
+    <wsdl:documentation>WebApplicationFournisseur</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema xmlns:ax2361="http://valueobject.api.fournisseur.services.fr/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://application.fournisseur.service.fr">
+            <xs:import namespace="http://valueobject.api.fournisseur.services.fr/xsd"/>
+            <xs:element name="annulerReservation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getReservation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getReservationResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax2360:IProduit"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="listerProduits">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="listerProduitsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax2360:IProduit"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="reserverProduit">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                        <xs:element minOccurs="0" name="quantite" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="reserverProduitResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://valueobject.domain.fournisseur.services.fr/xsd">
+			<xs:complexType name="Produit">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="nom" nillable="true" type="xs:string"/>
+					<xs:element minOccurs="0" name="prix" type="xs:double"/>
+					<xs:element minOccurs="0" name="quantite" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://valueobject.api.fournisseur.services.fr/xsd">
+            <xs:complexType abstract="true" name="IProduit">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="id" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nom" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="prix" type="xs:double"/>
+                    <xs:element minOccurs="0" name="quantite" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="annulerReservationRequest">
+        <wsdl:part name="parameters" element="ns:annulerReservation"/>
+    </wsdl:message>
+    <wsdl:message name="listerProduitsRequest">
+        <wsdl:part name="parameters" element="ns:listerProduits"/>
+    </wsdl:message>
+    <wsdl:message name="listerProduitsResponse">
+        <wsdl:part name="parameters" element="ns:listerProduitsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="reserverProduitRequest">
+        <wsdl:part name="parameters" element="ns:reserverProduit"/>
+    </wsdl:message>
+    <wsdl:message name="reserverProduitResponse">
+        <wsdl:part name="parameters" element="ns:reserverProduitResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getReservationRequest">
+        <wsdl:part name="parameters" element="ns:getReservation"/>
+    </wsdl:message>
+    <wsdl:message name="getReservationResponse">
+        <wsdl:part name="parameters" element="ns:getReservationResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="WebApplicationFournisseurPortType">
+        <wsdl:operation name="annulerReservation">
+            <wsdl:input message="ns:annulerReservationRequest" wsaw:Action="urn:annulerReservation"/>
+        </wsdl:operation>
+        <wsdl:operation name="listerProduits">
+            <wsdl:input message="ns:listerProduitsRequest" wsaw:Action="urn:listerProduits"/>
+            <wsdl:output message="ns:listerProduitsResponse" wsaw:Action="urn:listerProduitsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="reserverProduit">
+            <wsdl:input message="ns:reserverProduitRequest" wsaw:Action="urn:reserverProduit"/>
+            <wsdl:output message="ns:reserverProduitResponse" wsaw:Action="urn:reserverProduitResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getReservation">
+            <wsdl:input message="ns:getReservationRequest" wsaw:Action="urn:getReservation"/>
+            <wsdl:output message="ns:getReservationResponse" wsaw:Action="urn:getReservationResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="WebApplicationFournisseurSoap11Binding" type="ns:WebApplicationFournisseurPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="annulerReservation">
+            <soap:operation soapAction="urn:annulerReservation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="listerProduits">
+            <soap:operation soapAction="urn:listerProduits" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reserverProduit">
+            <soap:operation soapAction="urn:reserverProduit" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getReservation">
+            <soap:operation soapAction="urn:getReservation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="WebApplicationFournisseurSoap12Binding" type="ns:WebApplicationFournisseurPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="annulerReservation">
+            <soap12:operation soapAction="urn:annulerReservation" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="listerProduits">
+            <soap12:operation soapAction="urn:listerProduits" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reserverProduit">
+            <soap12:operation soapAction="urn:reserverProduit" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getReservation">
+            <soap12:operation soapAction="urn:getReservation" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="WebApplicationFournisseurHttpBinding" type="ns:WebApplicationFournisseurPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="annulerReservation">
+            <http:operation location="annulerReservation"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="listerProduits">
+            <http:operation location="listerProduits"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="reserverProduit">
+            <http:operation location="reserverProduit"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getReservation">
+            <http:operation location="getReservation"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="WebApplicationFournisseur">
+        <wsdl:port name="WebApplicationFournisseurHttpSoap11Endpoint" binding="ns:WebApplicationFournisseurSoap11Binding">
+            <soap:address location="http://192.168.122.1:9763/services/WebApplicationFournisseur.WebApplicationFournisseurHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="WebApplicationFournisseurHttpsSoap11Endpoint" binding="ns:WebApplicationFournisseurSoap11Binding">
+            <soap:address location="https://192.168.122.1:9443/services/WebApplicationFournisseur.WebApplicationFournisseurHttpsSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="WebApplicationFournisseurHttpsSoap12Endpoint" binding="ns:WebApplicationFournisseurSoap12Binding">
+            <soap12:address location="https://192.168.122.1:9443/services/WebApplicationFournisseur.WebApplicationFournisseurHttpsSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="WebApplicationFournisseurHttpSoap12Endpoint" binding="ns:WebApplicationFournisseurSoap12Binding">
+            <soap12:address location="http://192.168.122.1:9763/services/WebApplicationFournisseur.WebApplicationFournisseurHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="WebApplicationFournisseurHttpsEndpoint" binding="ns:WebApplicationFournisseurHttpBinding">
+            <http:address location="https://192.168.122.1:9443/services/WebApplicationFournisseur.WebApplicationFournisseurHttpsEndpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="WebApplicationFournisseurHttpEndpoint" binding="ns:WebApplicationFournisseurHttpBinding">
+            <http:address location="http://192.168.122.1:9763/services/WebApplicationFournisseur.WebApplicationFournisseurHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

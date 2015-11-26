@@ -1,23 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>fr.services.fournisseur</groupId>
-		<artifactId>parent</artifactId>
-		<version>1</version>
-	</parent>
-
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>fr.services.fournisseur</groupId>
+    <artifactId>parent</artifactId>
+    <version>1</version>
+  </parent>
   <groupId>fr.services.fournisseur</groupId>
-  <artifactId>api</artifactId>
+  <artifactId>application</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-
-  <name>api</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <name>application</name>
   
   <build>
 		<pluginManagement>
@@ -35,8 +26,20 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
+	  
   <dependencies>
+	<dependency>
+		<groupId>fr.services.fournisseur</groupId>
+		<artifactId>api</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>fr.services.fournisseur</groupId>
+		<artifactId>Infra</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+			
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
