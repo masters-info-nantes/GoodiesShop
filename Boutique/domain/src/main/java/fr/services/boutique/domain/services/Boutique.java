@@ -22,6 +22,7 @@ import fr.service.fournisseur.application.WebApplicationFournisseurStub.ListerPr
 import fr.service.fournisseur.application.WebApplicationFournisseurStub.ListerProduitsResponse;
 import fr.service.fournisseur.application.WebApplicationFournisseurStub.ReserverProduit;
 import fr.service.fournisseur.application.WebApplicationFournisseurStub.ReserverProduitResponse;
+import fr.services.boutique.api.factories.IClientFactory;
 import fr.services.boutique.api.services.IBoutique;
 
 
@@ -34,8 +35,10 @@ public class Boutique implements IBoutique{
 	private Map<String, Set<String>> reservations;
 	/*id commande / Produits*/
 	private Map<String, List<IProduit>> commandes;
+	IClientFactory factory = null;
 	
-	public Boutique(){
+	public Boutique(IClientFactory factory){
+		this.factory = factory;
 		clients = new HashSet<String>();
 		reservations = new TreeMap<String, Set<String>>();
 		commandes = new TreeMap<String, List<IProduit>>();
@@ -62,8 +65,7 @@ public class Boutique implements IBoutique{
 	}
 
 	@Override
-	public void validerProduitPourCommande(String nomUtilisateur,
-			String idProduits, int quantite) {
+	public void validerProduitPourCommande(String nomUtilisateur, String idProduits, int quantite) {
 		WebApplicationFournisseurStub stub;
 		try {
 			stub = new WebApplicationFournisseurStub(fournisseurEndPoint);
@@ -118,8 +120,7 @@ public class Boutique implements IBoutique{
 	}
 
 	@Override
-	public String effectuerPaiement(String nomCrediteur, String nomDebiteur,
-			double somme) {
+	public String effectuerPaiement(String nomClient, double somme) {
 		WebApplicationBanqueStub stubPaiement;
 		WebApplicationFournisseurStub stubFournisseur;
 		String idCommande = null;
@@ -128,23 +129,26 @@ public class Boutique implements IBoutique{
 			stubFournisseur = new WebApplicationFournisseurStub(fournisseurEndPoint);
 			
 			Payer requete = new Payer();
-			requete.setCompteCredit(nomCrediteur);
-			requete.setCompteDebit(nomDebiteur);
+			requete.setCompteDebit(nomClient);
 			requete.setSomme(somme);
+			requete.setCompteCredit("boutique");
 			
 			stubPaiement.payer(requete);
 			
 			idCommande = UUID.randomUUID().toString();
 			
 			List<IProduit> p = new ArrayList<IProduit>();
-			for(String s : reservations.get(nomCrediteur)){
-				GetReservation request = new GetReservation();
-				request.setId(nomCrediteur);
-				GetReservationResponse response = stubFournisseur.getReservation(request);
-				p.add(response.get_return());
+			
+			if(reservations.containsKey(nomClient)){
+				for(String s : reservations.get(nomClient)){
+					GetReservation request = new GetReservation();
+					request.setId(nomClient);
+					GetReservationResponse response = stubFournisseur.getReservation(request);
+					p.add(response.get_return());
+				}
+				this.commandes.put(idCommande, p);
+				this.reservations.remove(nomClient);
 			}
-			this.commandes.put(idCommande, p);
-			this.reservations.remove(nomCrediteur);
 			
 		}
 		catch(AxisFault e){
@@ -162,7 +166,7 @@ public class Boutique implements IBoutique{
 	}
 
 	@Override
-	public void supprimerCLient(String name) {
+	public void supprimerClient(String name) {
 		clients.remove(name);
 	}
 

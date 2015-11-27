@@ -10,6 +10,10 @@ public class Client implements IClient{
 
 	private String name;
 	private Map<String, List<IProduit>> produitsDesCommandes;
+	
+	public Client(String name){
+		this.name = name;
+	}
 	@Override
 	public String getName() {
 		return name;

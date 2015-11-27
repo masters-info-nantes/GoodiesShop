@@ -8,7 +8,7 @@ public interface IBoutique {
 	public void validerProduitPourCommande(String nomUtilisateur, String idProduits, int quantite);
 	public void annulerCommandeEnCours(String nomUtilisateur);
 	public void creerClient(String name);
-	public void supprimerCLient(String name);
-	String effectuerPaiement(String credit, String debit, double somme);
+	void supprimerClient(String name);
+	String effectuerPaiement(String nomCrediteur, double somme);
 	
 }
