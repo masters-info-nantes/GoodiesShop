@@ -1,0 +1,140 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[dvips]{graphicx}
+\usepackage[frenchb]{babel}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage[babel=true]{csquotes}
+\usepackage{color}
+
+% Marges %
+\geometry{total={210mm,297mm},
+left=20mm,right=20mm,
+top=25mm,bottom=25mm}
+
+% Style d'entête %
+\pagestyle{fancy}
+\lhead{Université de Nantes}
+\rhead{2015-2016}
+\cfoot{\thepage}
+
+% DOCUMENT %
+\widowpenalty=10000 % empeche au maximum la coupure avant la derniere ligne
+\clubpenalty=10000  % empeche au maximum la coupure apres la premiere ligne
+\raggedbottom       % empeche l'etirement des ressorts verticaux
+
+\title{Service}
+\author{Muriel Cadiot & Franck Boncler & Hector Labanca}
+\date{27/11/2015}
+
+
+\begin{document}
+\thispagestyle{empty}
+{%%%
+\sffamily
+\centering
+\Large
+Université de Nantes\\
+Faculté des sciences et Techniques\\
+M2 ALMA - Services\\
+
+\vspace{\fill}
+
+{\huge 
+\textbf{Services \\
+\bigskip
+GoodiesShop}
+}
+
+\vspace{4cm}
+
+{\LARGE
+Muriel Cadiot \\
+
+Franck Boncler \\
+
+Hector Labanca \\
+}
+\vspace{\fill}
+
+Novembre 2015 
+%%%
+}%%%
+
+\clearpage
+%
+% =====================================================================
+% =====================================================================
+%
+
+{
+\Large
+\tableofcontents
+}
+
+\clearpage
+\section{Introduction}
+Ce projet consiste en la création d'une boutique en ligne proposant à l'utilisateur différentes fonctionnalités.Ces fonctionnalités sont codées sous forme de services. 
+Pour gérer ses ventes, la boutique s’appuie sur un fournisseur qui met à disposition des services web pour fournir les produits et sur un service bancaire pour gérer le paiement par carte.
+\paragraph{Code source}
+Notre code source est disponible sur Github à l'adresse suivante :\\
+https://github.com/masters-info-nantes/GoodiesShop\\
+L'ancien code se trouve sur la branche \texttt{master}, le nouveau (qui suit le DDD) est sur la branche \texttt{new-imp}.
+
+\section{Architecture}
+
+Nous avons adapté notre architecture originale afin de suivre une approche DDD.
+Nous allons d'abord présenter cette nouvelle architecture, puis nous détaillerons les avantages qu'elle présente par rapport à l'originale.
+
+\subsection{Organisation actuelle}
+
+Notre architecture actuelle est conceptuellement très similaire à celle que nous avons définie initialement.
+Les différences se situent au niveau de l'organisation du code.
+Nous avons donc conservé la division en plusieurs services : Boutique, Fournisseur, Banque.
+Le code de chacun de ces services est lui-même divisé en plusieurs parties : domaine, API, infrastructure et application.
+Pour chaque service, nous avons identifié les notions suivantes :
+
+\subsubsection{Boutique}
+\paragraph{Objet du domaine}
+L'objet est un Client. Le Client est identifié par un nom, il possède une liste de commandes qu'il a effectuées, chacune étant identifiée par une chaîne de caractères. Chaque commande est constituée d'une liste de Produits.
+\paragraph{API du service}
+L'API est à peu près identique à celle de la version précédente. Nous avons ajouté les méthodes d'ajout et de suppression d'un Client.
+
+\subsubsection{Fournisseur}
+\paragraph{Objet du domaine}
+L'objet est ici un Produit. Il correspond à un produit présent dans le catalogue du fournisseur. Il possède un identifiant unique, un nom, et un prix (en dollars). Il possède également une quantité, qui correspond soit au stock du fournisseur, soit, dans le contexte d'une commande d'un client à la Boutique, à la quantité de ce Produit dans la commande.
+\paragraph{API du service}
+On peut obtenir la liste des Produits du fournisseur, Réserver une certaine quantité d'un Produit (ce qui crée un identifiant de réservation), et supprimer ou accéder à une réservation à l'aide de son identifiant.
+
+\subsubsection{Banque}
+\paragraph{Objet du domaine}
+L'objet est un Compte. Il possède un identifiant IBAN et un solde. Il est possible de le créditer ou le débiter d'une certaine somme.
+\paragraph{API du service}
+Comme initialement, la banque ne propose qu'un service de paiement, auquel on renseigne le compte à débiter (typiquement, celui du client), le compte à créditer (celui de la boutique) et la somme en dollars de la transaction.
+
+\subsection{Organisation interne des services}
+Les éléments constitutifs de chaque service ont été clairement séparés afin de réduire le couplage entre eux.
+L'organisation du code source dans chaque service suit le découpage suivant :
+
+\paragraph{API}
+Interfaces Java décrivant les contrats des services, des objets, et des factories.
+\paragraph{Domain}
+Services et objets concrets (implémentations des interfaces définies dans l'API).
+\paragraph{Infrastructure}
+Factories concrètes implémentant l'API correspondante.
+\paragraph{Application}
+Application concrète mettant en oeuvre les services et objets du domaine, et les factories de l'infrastructure.
+Dans notre cas, cela correspond à une application WSO2.
+
+\subsection{Différences avec l'organisation initiale}
+
+Notre architecture initiale était plutôt axée sur une approche "best effort", qui visait à obtenir un résultat fonctionnel le plus vite possible. Cela nous a mené à concevoir des services "monolithiques", consistant en général d'une ou deux classes, et donc fortement couplés internement.
+Notamment, nous n'avions pas spécifié de contrats à l'aide d'interfaces Java, ni pour les services, ni pour les objets qu'ils utilisaient.\\
+En comparaison, notre architecture actuelle permet de réduire grandement le couplage interne des services, et identifie plus clairement les responsabilités des différents composants du service relativement au domaine.
+
+\section{Problèmes rencontrés}
+
+Nous avons éprouvé des difficultés à mettre en place nos services sur WSO2. Par exemple nous n'avons pas pu utiliser les injections de dépendance via spring car son utilisation avec wso2 n'a pas été possible (même en changeant la version de wso2 ou encore en faisant un projet basique de test). Un autre problème que nous avons rencontré est lors de l'appel du service Fournisseur dans le service Boutique; cela génère diverses exceptions liées au code client généré par wso2 (quand nous utilisons le service déployé via la console de wso2, il fonctionne parfaitement). Nous n'avons pas trouvé de solution à ce problème, l'architecture générale est donc malheureusement inopérante, bien qu'elle soit complète.
+
+\end{document}
