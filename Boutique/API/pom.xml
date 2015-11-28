@@ -48,7 +48,7 @@
                 </executions>
                 <configuration>
                     <outputDirectory>${basedir}</outputDirectory>
-                    <databindingName>adb</databindingName><portName>WebApplicationFournisseurHttpsSoap12Endpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/WebApplicationFournisseur?wsdl</wsdlFile>
+                    <databindingName>adb</databindingName><portName>FournisseurHttpEndpoint</portName><language>java</language><wsdlFile>http://localhost:9763/services/Fournisseur?wsdl</wsdlFile>
                 </configuration>
             </plugin>
             <plugin>

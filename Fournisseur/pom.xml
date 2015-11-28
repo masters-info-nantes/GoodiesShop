@@ -8,6 +8,5 @@
   	<module>API</module>
   	<module>domain</module>
   	<module>infra</module>
-  	<module>application</module>
   </modules>
 </project>

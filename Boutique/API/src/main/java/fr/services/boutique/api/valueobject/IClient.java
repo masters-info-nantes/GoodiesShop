@@ -1,9 +1,10 @@
 package fr.services.boutique.api.valueobject;
 
-import fr.service.fournisseur.application.WebApplicationFournisseurStub.IProduit;
+import fr.services.fournisseur.domain.services.FournisseurStub.Produit;
+
 
 public interface IClient {
 	public String getName();
-	public IProduit[] getProduits(String idCommande);
+	public Produit[] getProduits(String idCommande);
 	public String[] getCommandes();
 }

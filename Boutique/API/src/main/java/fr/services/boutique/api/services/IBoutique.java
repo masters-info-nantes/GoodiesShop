@@ -1,6 +1,7 @@
 package fr.services.boutique.api.services;
 
-import fr.service.fournisseur.application.WebApplicationFournisseurStub.IProduit;
+import fr.services.fournisseur.domain.services.FournisseurStub.IProduit;
+import fr.services.fournisseur.domain.services.FournisseurStub.Produit;
 
 public interface IBoutique {
 	

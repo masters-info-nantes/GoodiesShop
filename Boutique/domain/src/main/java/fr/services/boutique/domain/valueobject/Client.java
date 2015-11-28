@@ -3,28 +3,28 @@ package fr.services.boutique.domain.valueobject;
 import java.util.List;
 import java.util.Map;
 
-import fr.service.fournisseur.application.WebApplicationFournisseurStub.IProduit;
 import fr.services.boutique.api.valueobject.IClient;
+import fr.services.fournisseur.domain.services.FournisseurStub.Produit;
 
 public class Client implements IClient{
 
 	private String name;
-	private Map<String, List<IProduit>> produitsDesCommandes;
+	private Map<String, List<Produit>> produitsDesCommandes;
 	
 	public Client(String name){
 		this.name = name;
 	}
-	@Override
+	
 	public String getName() {
 		return name;
 	}
 
-	@Override
-	public IProduit[] getProduits(String idCommande) {
-		return (IProduit[]) produitsDesCommandes.get(idCommande).toArray();
+	
+	public Produit[] getProduits(String idCommande) {
+		return (Produit[]) produitsDesCommandes.get(idCommande).toArray();
 	}
 
-	@Override
+	
 	public String[] getCommandes() {
 		return (String[]) produitsDesCommandes.keySet().toArray();
 	}
